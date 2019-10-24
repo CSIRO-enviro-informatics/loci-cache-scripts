@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+    asgs_harvest:
+        environment: 
+            - GRAPH_NAME=http://linked.data.gov.au/dataset/addr1605catch
+            - OUTPUT_FILE=${ADDR16052CC_LINKSET_FILE}
+            - S3_SOURCE_FILE="gnaf-geofab-linkset-source/gnaf201605_cc.csv"
