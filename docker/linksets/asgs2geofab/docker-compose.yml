@@ -6,7 +6,7 @@ services:
       context: mb2cc
       target: python-specific
     env_file:
-      - ../../common/common.env
+      - ../../../common/common.env
       - .env
     environment:
       - S3_BUCKET
