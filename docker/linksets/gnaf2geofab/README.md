@@ -1,4 +1,4 @@
-To run the harvest, simple pick the `harvest[year].sh` and run it from the asgs directory
+To run the harvest, simple pick the `create[year/month].sh` and run it from the `gnaf2geofab` directory
 
 The scripts pull confguration from the /common/common.sh script. This sets a bunch of common variables to ensure all the 
 containers are consistent with each other.
