@@ -1,8 +1,9 @@
 version: "3.7"
 
 services:
-    asgs_harvest:
+    linkset_creation:
         environment: 
-            - GRAPH_NAME=http://linked.data.gov.au/dataset/addrcatch
-            - S3_SOURCE_FILE="gnaf-geofab-linkset-source/gnaf201811_cc.csv"
+            - SUBJECT_DATASET_URI=${GNAF_DATASET_URI}
+            - LINKSET_URI=${ADDR2CC_LINKSET_URI}
             - OUTPUT_FILE=${ADDR2CC_LINKSET_FILE}
+            - S3_SOURCE_FILE=gnaf-geofab-linkset-source/gnaf201811_cc.csv

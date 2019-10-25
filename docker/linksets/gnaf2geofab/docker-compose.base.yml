@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    asgs_harvest:
+    linkset_creation:
         build:
             context: .
             dockerfile: Dockerfile
@@ -12,3 +12,4 @@ services:
             - S3_REGION
             - S3_PATH=${S3_LINKSET_PATH}
             - S3_SOURCE_DATA_PATH
+            - OBJECT_DATASET_URI=${GEOFABRIC_DATASET_URI}
