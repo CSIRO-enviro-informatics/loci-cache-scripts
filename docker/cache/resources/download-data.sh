@@ -8,7 +8,7 @@ DATASET_BASE="${S3_BASE}${S3_DATASET_PATH}"
 #Linksets
 wget "${LINKSET_BASE}/${MB2CC_LINKSET_FILE}"
 wget "${LINKSET_BASE}/${ADDR2CC_LINKSET_FILE}"
-#wget "${LINKSET_BASE}/${ADDR16052CC_LINKSET_FILE}"
+wget "${LINKSET_BASE}/${ADDR16052CC_LINKSET_FILE}"
 
 #mb11mb16
 #addrcatch-linkset
@@ -21,6 +21,7 @@ wget "${LINKSET_BASE}/${ADDR2CC_LINKSET_FILE}"
 wget "${DATASET_BASE}/${ASGS2016_DATASET_FILE}"
 wget "${DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF_DATASET_FILE}"
+wget "${DATASET_BASE}/${GNAF1605_DATASET_FILE}"
 
 #Registries
 wget "http://linked.data.gov.au/dataset/asgs2016/reg/?_view=reg&_format=text/turtle" -O asgs2016.reg.ttl
