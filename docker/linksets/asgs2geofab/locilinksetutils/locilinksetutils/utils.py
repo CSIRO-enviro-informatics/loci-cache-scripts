@@ -1,5 +1,6 @@
 import os
 import subprocess
+import zipfile
 import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
@@ -53,16 +54,13 @@ def fail_or_getenv(env_var_name, warn_only=False):
     else:
         return env_value
 
-def upload_ttl(target_s3_file, local_source_file):
-    logging.info("Uploading {} to s3".format(local_source_file))
-    fail_or_getenv('AWS_ACCESS_KEY_ID')
-    fail_or_getenv('AWS_SECRET_ACCESS_KEY')
-    linkset_file = target_s3_file 
-    s3_bucket = fail_or_getenv('S3_BUCKET')
-    s3_linkset_path = fail_or_getenv('S3_LINKSET_PATH')
-    s3_region_name = fail_or_getenv('S3_REGION')
-    s3_client = boto3.client('s3', region_name=s3_region_name)
-    filename = s3_linkset_path+ '/' + linkset_file 
-    s3_client.upload_file(local_source_file, s3_bucket, filename[1:])
 
-
+def get_s3_assets(local_file_name_save_to, s3_bucket, s3_path):
+    '''
+    Download zipped s3 assets and unzip them 
+    '''
+    if not os.path.exists('../assets'):
+        os.makedirs('../assets')
+    run_command(['aws', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
+    with zipfile.ZipFile('../assets/{}.zip'.format(local_file_name_save_to), 'r') as zip_ref:
+        zip_ref.extractall('../assets')

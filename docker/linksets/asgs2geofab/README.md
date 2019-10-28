@@ -1,12 +1,12 @@
 # Automation of Linkset Creation
 
-Code to automate the process of linkset creation. Currently specific for meshblocks and contracted catchments.
+Code to automate the process of linkset creation. Currently for meshblocks and contracted catchments and riverregions to contracted catchments.
 
 ## Requirements
 
 Requires environment variables configured in `../../common/common.sh` and in `./.env`
 
-additionally valid `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` must be set prior to run
+additionally valid `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN` must be set prior to run
 
 ## Optional
 
@@ -14,10 +14,18 @@ Optionally set LOAD_LIMIT to test the link build process by loading a limited su
 
 ## Running
 
-Run with `start.sh` to execute the default workflow
+### Meshblocks to Contracted Catchments
 
-Modify docker-compose.yml to swap to the `tail -f...` command to enable manual execution then docker-compose exec linksets to execute manual commands in the `/app/` directory.
+Run with `createMBtoCC.sh` to execute the default workflow
+
+### RiverRegions to Contracted Catchments
+
+Run with `createRRtoCC.sh` to execute the default workflow
+
+### Dev mode
+
+Run `start.sh` docker-compose.yml enable manual execution then docker-compose exec linksets to execute manual commands in the `/app/` directory.
 
 ### Linkset upload
 
-To upload a new version of the asgs 2016 mb data from WFS to S3 execute `cd /app/linksets/mb2cc && python preload_asgs_wfs.py` in the linksets container
+To upload a new version of the asgs 2016 mb data from WFS to S3 enter dev mode above and execute `cd /app/mb2cc/mb2cc && python preload_asgs_wfs.py` in the linksets container

@@ -1,2 +1,6 @@
-docker/linksets/assets/
+docker/linksets/asgs2geofab/assets/
+docker/linksets/asgs2geofab/locilinksetutils/locilinksetutils.egg-info/
+docker/linksets/asgs2geofab/locilinksetutils/locilinksetutils/__pycache__/
+docker/linksets/.vscode/
+docker/linksets/asgs2geofab/mb2cc/__pycache__/
 graphdb-free-8.10.0-dist.zip

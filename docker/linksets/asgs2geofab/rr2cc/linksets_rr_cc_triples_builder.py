@@ -1,5 +1,5 @@
-import linksets_triples_builder
-import utils
+from locilinksetutils import linksets_triples_builder
+from locilinksetutils import utils
 
 if __name__ == "__main__":
     database_url = utils.fail_or_getenv('DATABASE_URL')

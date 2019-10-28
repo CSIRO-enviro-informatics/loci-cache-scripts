@@ -1,5 +1,5 @@
-import linksets_builder
-import utils
+from locilinksetutils import linksets_builder
+from locilinksetutils import utils
 import logging
 logging.basicConfig(level=logging.DEBUG)
 

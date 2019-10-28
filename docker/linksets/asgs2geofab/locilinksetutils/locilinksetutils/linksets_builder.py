@@ -1,8 +1,7 @@
 import zipfile
 import os
 import logging
-import utils
-from utils import run_command
+from . import utils
 logging.basicConfig(level=logging.DEBUG)
 
 LIMIT_LOAD = utils.fail_or_getenv('LIMIT_LOAD', warn_only=True)
@@ -14,7 +13,6 @@ asgs_mb_wfs_url = utils.fail_or_getenv('ASGS_MB_WFS_URL')
 # check that AWS keys are defined for command line aws s3 calls
 utils.fail_or_getenv('AWS_ACCESS_KEY_ID')
 utils.fail_or_getenv('AWS_SECRET_ACCESS_KEY')
-asgs_2016_local_name_prefix = "mb_2016_all_shape"
 
 
 def load_via_ogr(source_data, target_table_name, source_data_table=None, define_target_geometry_type='MULTIPOLYGON', limit=LIMIT_LOAD):
@@ -36,7 +34,7 @@ def load_via_ogr(source_data, target_table_name, source_data_table=None, define_
     if source_data_table is not None:
         source_data_table_args = [source_data_table]
 
-    run_command(["ogr2ogr", "-f", "PostgreSQL", "PG:host=postgis port=5432 dbname=mydb user=postgres password=password",
+    utils.run_command(["ogr2ogr", "-f", "PostgreSQL", "PG:host=postgis port=5432 dbname=mydb user=postgres password=password",
                 source_data, "-skipfailures", "-overwrite", "-progress", "-nln", target_table_name] + source_data_table_args + ["-lco", "GEOMETRY_NAME=geom_3577", "-lco", "PRECISION=NO", "-t_srs", "EPSG:3577"] + target_geometry_args + limit_args + ["--config", "PG_USE_COPY", "YES"])
 
 
@@ -45,9 +43,9 @@ def prepare_database():
     Create and prepare a postgis database for geospatial processing
     '''
     logging.info("Preparing Database")
-    run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "DROP DATABASE IF EXISTS mydb;"])
-    run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "CREATE DATABASE mydb;"])
-    run_command(["psql", "--host", "postgis", "--user", "postgres", "-d", "mydb", 
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "DROP DATABASE IF EXISTS mydb;"])
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "CREATE DATABASE mydb;"])
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-d", "mydb", 
                 "-c", "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;"])
 
 
@@ -57,46 +55,30 @@ def get_s3_assets(local_file_name_save_to, s3_bucket, s3_path):
     '''
     if not os.path.exists('../assets'):
         os.makedirs('../assets')
-    run_command(['aws', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
+    utils.run_command(['aws', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
     with zipfile.ZipFile('../assets/{}.zip'.format(local_file_name_save_to), 'r') as zip_ref:
         zip_ref.extractall('../assets')
 
 
-def get_geofabric_assets():
-    logging.info("Downloading geofabric spatial data")
-    get_s3_assets('HR_Catchments_GDB_V2_1_1', s3_bucket, s3_source_data_path + s3_geofabric_path)
+def upload_ttl(target_s3_file, local_source_file):
+    logging.info("Uploading {} to s3".format(local_source_file))
+    fail_or_getenv('AWS_ACCESS_KEY_ID')
+    fail_or_getenv('AWS_SECRET_ACCESS_KEY')
+    linkset_file = target_s3_file 
+    s3_bucket = fail_or_getenv('S3_BUCKET')
+    s3_linkset_path = fail_or_getenv('S3_LINKSET_PATH')
+    s3_region_name = fail_or_getenv('S3_REGION')
+    s3_client = boto3.client('s3', region_name=s3_region_name)
+    filename = s3_linkset_path+ '/' + linkset_file 
+    s3_client.upload_file(local_source_file, s3_bucket, filename[1:])
 
 
-def get_meshblock_assets():
-    logging.info("Downloading asgs 2016 spatial data")
-    get_s3_assets(asgs_2016_local_name_prefix, s3_bucket, s3_source_data_path + s3_asgs_2016_mb_path)
-
-
-def load_geofabric_catchments():
-    '''
-    Loads Geofabric Catchments into PostGIS
-    Note: No need to set -nlt MULTIPOLYGON here, because the .gdb file already defines the shapes as MULTIPOLYGON.
-    All Geofabric cooards are in crs EPSG:4326 (WGS-84), but the geometry column in the catchments table DOES NOT contain a SRID declaration, so you need to add it yourself in the query
-    eg: ST_GeomFromWKB(shape, 4326). Then we need to convert it to albers (EPSG:3577) in order to do constant-area intersections with meshblocks.
-    '''
-    logging.info("Loading geofabric catchments")
-    load_via_ogr("../assets/HR_Catchments_GDB/HR_Catchments.gdb", "to", source_data_table="AHGFContractedCatchment", define_target_geometry_type=None)
-    to_id_column = "hydroid"
-    return to_id_column
-
-
-def load_asgs_mb():
-    '''
-    Load ASGS Mesh Blocks into PostGIS
-    Note: `-nlt MULTIPOLYGON` is specified here, because by default it will ingest as MULTISURFACE, which doesn't work well for our use-case.
-    There will be some errors when it tries to import from_pt, because it POINTS don't work with MULTIPOLYGON layer types. Ignore this. We don't use mb_pt
-    All ASGS coords are in crs EPSG:3857, this needs to be transformed to albers (EPSG:3577) in the sql query in order to do constant-area intersections with catchments 
-    eg: ST_Transform(shape, 3577)
-    '''
-    logging.info("Loading asgs meshblocks")
-    load_via_ogr("../assets/{}/MB_MB.shp".format(asgs_2016_local_name_prefix), "from")
-    from_id_column = "mb_code_20"
-    return from_id_column 
+def build_linkset(from_id_column, to_id_column):
+    fix_geometries()
+    create_geometry_indexes()
+    create_intersections(from_id_column, to_id_column)
+    create_intersections_areas(from_id_column, to_id_column)
+    create_classifier_views()
 
 def fix_geometries():
     '''
@@ -114,7 +96,7 @@ def create_geometry_indexes():
     CREATE INDEX from_geom_3577_gix ON public.\"from\" USING GIST (geom_3577);
     CREATE INDEX to_geom_3577_gix ON public.\"to\" USING GIST (geom_3577);
     """
-    run_command(["psql", "--host", "postgis", "--user",
+    utils.run_command(["psql", "--host", "postgis", "--user",
                  "postgres", "-d", "mydb", "-c", create_geometry_indexes_sql])
 
 
@@ -139,7 +121,7 @@ def create_intersections(from_id_column, to_id_column):
     WHERE ST_IsValid(to_t.geom_3577) AND ST_IsValid(from_t.geom_3577) AND ST_Intersects(to_t.geom_3577, from_t.geom_3577)
     ORDER BY to_t.\"{to_id_column}\" ASC;
     """.format(from_id_column=from_id_column, to_id_column=to_id_column)
-    run_command(["psql", "--host", "postgis", "--user",
+    utils.run_command(["psql", "--host", "postgis", "--user",
                  "postgres", "-d", "mydb", "-c", create_intersection_sql])
 
 
@@ -177,7 +159,7 @@ def create_intersections_areas(from_id_column, to_id_column):
     INNER JOIN public.\"from\" as from_t ON from_t.\"{from_id_column}\" = mv.\"{from_id_column}\"
     ) as s;
     """.format(from_id_column=from_id_column, to_id_column=to_id_column)
-    run_command(["psql", "--host", "postgis", "--user",
+    utils.run_command(["psql", "--host", "postgis", "--user",
                  "postgres", "-d", "mydb", "-c", create_intersection_areas_sql])
 #
 
@@ -195,27 +177,35 @@ def create_classifier_views():
     SELECT to_t.*, to_t.to_proportion >= 0.010 as is_overlaps, to_t.to_proportion >=0.990 as is_within
     FROM tointersectfromareas as to_t;
     """
-    run_command(["psql", "--host", "postgis", "--user",
+    utils.run_command(["psql", "--host", "postgis", "--user",
                  "postgres", "-d", "mydb", "-c", create_classifier_views_sql])
 
-def build_linkset(from_id_column, to_id_column):
-    fix_geometries()
-    create_geometry_indexes()
-    create_intersections(from_id_column, to_id_column)
-    create_intersections_areas(from_id_column, to_id_column)
-    create_classifier_views()
 
-if __name__ == "__main__":
-    #Generic preparation logic
-    prepare_database()
+def prepare_database():
+    '''
+    Create and prepare a postgis database for geospatial processing
+    '''
+    logging.info("Preparing Database")
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "DROP DATABASE IF EXISTS mydb;"])
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-c", "CREATE DATABASE mydb;"])
+    utils.run_command(["psql", "--host", "postgis", "--user", "postgres", "-d", "mydb", 
+                "-c", "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;"])
 
-    #Specific meshblock and catchment logic TODO: This and generic logic will be seperated further in future refactors
-    get_geofabric_assets()
-    get_meshblock_assets()
-    load_from_data = load_asgs_mb
-    load_to_data = load_geofabric_catchments
-    from_id_column = load_from_data()
-    to_id_column = load_to_data()
 
-    # Generic linksets builder logic
-    build_linkset(from_id_column, to_id_column)
+def load_geofabric_catchments():
+    '''
+    Loads Geofabric Catchments into PostGIS
+    Note: No need to set -nlt MULTIPOLYGON here, because the .gdb file already defines the shapes as MULTIPOLYGON.
+    All Geofabric cooards are in crs EPSG:4326 (WGS-84), but the geometry column in the catchments table DOES NOT contain a SRID declaration, so you need to add it yourself in the query
+    eg: ST_GeomFromWKB(shape, 4326). Then we need to convert it to albers (EPSG:3577) in order to do constant-area intersections with meshblocks.
+    '''
+    logging.info("Loading geofabric catchments")
+    load_via_ogr("../assets/HR_Catchments_GDB/HR_Catchments.gdb", "to", source_data_table="AHGFContractedCatchment", define_target_geometry_type=None)
+    to_id_column = "hydroid"
+    return to_id_column
+
+
+def get_geofabric_assets():
+    logging.info("Downloading geofabric spatial data")
+    utils.get_s3_assets('HR_Catchments_GDB_V2_1_1', s3_bucket, s3_source_data_path + s3_geofabric_path)
+
