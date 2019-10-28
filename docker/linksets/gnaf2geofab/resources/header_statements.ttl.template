@@ -1,0 +1,31 @@
+l: a loci:Linkset ;
+  dct:title "Addresses Contracted-Catchments Linkset" ;
+  dct:description """This LOC-I Project Linkset relates Address individuals in the G-NAF LOC-I Dataset to Contracted Catchment individuals in the Geofabric LOC-I Dataset. Every Address -> Catchment relation is geosparql:sfWithin, that is the Address is sfWithin the Catchment.
+The Linkset triples (Address sfWithin Catchment) are reified so that each triple is contained within an RDF Statement class instance so that the triple is numbered and the method used to generate the triple is given by the loci:hadGenerationMethod.
+The method used for all triples in this Linkset is the same and it is SpatialIntersection which is defined below.
+The triples for the main data in this linkset - the Statements relating Addresses to Catchments - are valid RDF in the Turtle syntax but an unusual namespacing arrangement is used so all terms are indicated with as few letters as possible, mostly one letter then colon, e.g. s: for http://www.w3.org/1999/02/22-rdf-syntax-ns#subject, rather than the more common rdf:subject. This is simply to reduce file size."""@en ;
+  dct:publisher <http://catalogue.linked.data.gov.au/org/psma> ;
+  dcat:contactPoint _:jo ;
+  dct:issued "2019-01-30"^^xsd:date ;
+  dct:modified "2019-01-30"^^xsd:date ;
+  dct:contributor <http://orcid.org/0000-0002-8742-7730> , <http://orcid.org/0000-0003-0590-0131> ;
+  void:subjectsTarget <${SUBJECT_DATASET_URI}> ;
+  void:objectsTarget <${OBJECT_DATASET_URI}> ;
+  void:linkPredicate w: ;
+  m: si: .
+
+_:jo a vcard:Individual ;
+  vcard:fn "Joseph Abhayaratna" ;
+  vcard:hasEmail <mailto:joseph.abhayaratna@psma.com.au> .
+
+si: a prov:Plan ;
+  rdfs:label "Spatial Intersection Method" ;
+  rdfs:comment "This method uses the G-NAF LDAPI to page through the register, obtain the GeoSPARQL geometry for the address point, and then uses a OGC Simple Features Contains filter on the GeoFabric WFS Service"@en ;
+  prov:value <https://github.com/jabhay/linkset_creator> ;
+  prov:wasAttributedTo _:jo ;
+  prov:generatedAtTime "2019-01-30"^^xsd:date .
+
+#
+# Statements
+#
+

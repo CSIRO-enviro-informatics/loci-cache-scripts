@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+    linkset_creation:
+        environment: 
+            - SUBJECT_DATASET_URI=${GNAF1605_DATASET_URI}
+            - LINKSET_URI=${ADDR16052CC_LINKSET_URI}
+            - OUTPUT_FILE=${ADDR16052CC_LINKSET_FILE}
+            - S3_SOURCE_FILE=gnaf-geofab-linkset-source/gnaf201605_cc.csv
