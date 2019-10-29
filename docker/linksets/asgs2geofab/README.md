@@ -6,7 +6,7 @@ Code to automate the process of linkset creation. Currently for meshblocks and c
 
 Requires environment variables configured in `../../common/common.sh` and in `./.env`
 
-additionally valid `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN` must be set prior to run
+additionally valid `LOCI_S3_ACCESS_KEY_ID`, `LOCI_S3_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN` must be set prior to run
 
 ## Optional
 

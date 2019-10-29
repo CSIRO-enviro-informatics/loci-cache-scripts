@@ -60,19 +60,6 @@ def get_s3_assets(local_file_name_save_to, s3_bucket, s3_path):
         zip_ref.extractall('../assets')
 
 
-def upload_ttl(target_s3_file, local_source_file):
-    logging.info("Uploading {} to s3".format(local_source_file))
-    fail_or_getenv('AWS_ACCESS_KEY_ID')
-    fail_or_getenv('AWS_SECRET_ACCESS_KEY')
-    linkset_file = target_s3_file 
-    s3_bucket = fail_or_getenv('S3_BUCKET')
-    s3_linkset_path = fail_or_getenv('S3_LINKSET_PATH')
-    s3_region_name = fail_or_getenv('S3_REGION')
-    s3_client = boto3.client('s3', region_name=s3_region_name)
-    filename = s3_linkset_path+ '/' + linkset_file 
-    s3_client.upload_file(local_source_file, s3_bucket, filename[1:])
-
-
 def build_linkset(from_id_column, to_id_column):
     fix_geometries()
     create_geometry_indexes()
@@ -123,7 +110,6 @@ def create_intersections(from_id_column, to_id_column):
     """.format(from_id_column=from_id_column, to_id_column=to_id_column)
     utils.run_command(["psql", "--host", "postgis", "--user",
                  "postgres", "-d", "mydb", "-c", create_intersection_sql])
-
 
 
 def create_intersections_areas(from_id_column, to_id_column):
