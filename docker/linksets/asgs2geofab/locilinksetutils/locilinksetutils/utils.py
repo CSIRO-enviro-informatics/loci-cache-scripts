@@ -61,7 +61,7 @@ def get_s3_assets(local_file_name_save_to, s3_bucket, s3_path):
     '''
     if not os.path.exists('../assets'):
         os.makedirs('../assets')
-    run_command(['aws', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
+    run_command(['aws', '--region', 'ap-southeast-2', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
     with zipfile.ZipFile('../assets/{}.zip'.format(local_file_name_save_to), 'r') as zip_ref:
         zip_ref.extractall('../assets')
 

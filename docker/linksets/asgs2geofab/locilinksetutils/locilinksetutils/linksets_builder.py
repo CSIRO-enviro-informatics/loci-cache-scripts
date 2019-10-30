@@ -49,17 +49,6 @@ def prepare_database():
                 "-c", "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;"])
 
 
-def get_s3_assets(local_file_name_save_to, s3_bucket, s3_path):
-    '''
-    Download zipped s3 assets and unzip them 
-    '''
-    if not os.path.exists('../assets'):
-        os.makedirs('../assets')
-    utils.run_command(['aws', 's3', 'cp', 's3://{}{}'.format(s3_bucket, s3_path), '../assets/'])
-    with zipfile.ZipFile('../assets/{}.zip'.format(local_file_name_save_to), 'r') as zip_ref:
-        zip_ref.extractall('../assets')
-
-
 def build_linkset(from_id_column, to_id_column):
     fix_geometries()
     create_geometry_indexes()
