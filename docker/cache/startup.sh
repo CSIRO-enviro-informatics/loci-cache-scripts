@@ -14,7 +14,8 @@ then
     fi
 fi
 
-docker-compose up -d --build --force-recreate
+#start the service with a restart paremeter set.
+docker-compose -f docker-compose.yml -f docker-compose.restart.yml up -d --build --force-recreate
 
 #Use this to see the logs if needed
 #docker-compose logs -f
