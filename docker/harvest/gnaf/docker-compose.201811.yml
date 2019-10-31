@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+    asgs_harvest:
+        environment: 
+            - GRAPH_NAME=${GNAF_DATASET_URI}
+            - OUTPUT_FILE=${GNAF_DATASET_FILE}
+            - BRANCH=config_envs
+            - DB_SCHEMA=gnaf

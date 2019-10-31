@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+    asgs_harvest:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment: 
+            - AWS_ACCESS_KEY_ID
+            - AWS_SECRET_ACCESS_KEY
+            - S3_BUCKET
+            - S3_REGION
+            - S3_PATH=${S3_DATASET_PATH}
+            - SINGLE_REGISTER
+            - DB_HOST=GNAF_HOST
+            - DB_PORT=GNAF_PORT
+            - DB_DBNAME=GNAF_DBNAME
+            - DB_USR=GNAF_USR
+            - DB_PWD=GNAF_PWD
+            - SPARQL_AUTH_USR=GNAF_SPARQL_AUTH_USR
+            - SPARQL_AUTH_PWD=GNAF_SPARQL_AUTH_PWD
