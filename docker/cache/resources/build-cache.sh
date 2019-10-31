@@ -31,6 +31,7 @@ if [ -n "${FORCE_REFRESH}" ]; then
 
     #start the db in the background
     ${GRAPHDB_HOME}/bin/graphdb & 
+    GRAPHDB_PID=$!
 
     #wait for it to startup
     echo "Waiting for GraphDB to start up"
@@ -47,6 +48,8 @@ if [ -n "${FORCE_REFRESH}" ]; then
     for filename in ${APP_HOME}/pre-condition-files/*.sparql; do
         curl -X POST ${STATEMENTS_ENDPOINT} -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/sparql-results+json" --data-urlencode "update@$filename"
     done
+
+    kill ${GRAPHDB_PID}
 else
     #Just start of the GraphDB instance
     echo "Starting GraphsDB with existing data: no building"
