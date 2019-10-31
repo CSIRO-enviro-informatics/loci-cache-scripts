@@ -33,9 +33,7 @@ fi
 pip install --no-cache-dir -r requirements.txt
 
 export PYTHONPATH=$(pwd)
-cd asgs_dataset
-python ./app.py --init
-cd ..
+# python ./app.py --init
 python ./new_graph_builder.py ${SINGLE_REGISTER}
 
 cd instance
