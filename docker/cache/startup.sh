@@ -10,7 +10,7 @@ then
         export FORCE_REFRESH=1
 
         # run and wait for exit (build)
-        docker-compose up --build --force-recreate
+        docker-compose up --build --force-recreate --abort-on-container-exit
         
         unset FORCE_REFRESH
     else
