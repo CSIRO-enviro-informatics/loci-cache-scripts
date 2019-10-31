@@ -8,6 +8,11 @@ then
     if [ "$1" == "--rebuild" ]
     then
         export FORCE_REFRESH=1
+
+        # run and wait for exit (build)
+        docker-compose up --build --force-recreate
+        
+        unset FORCE_REFRESH
     else
         echo "--rebuild is the only valid option to this script"
         exit 1

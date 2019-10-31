@@ -16,7 +16,7 @@ env
 
 echo "GDB_HEAP_SIZE set at ${GDB_HEAP_SIZE}"
 
-if [ -z "$(ls -A $GRAPHDB_SOURCE)" ] || [ -n "${FORCE_REFRESH}" ]; then
+if [ -n "${FORCE_REFRESH}" ]; then
     echo "Downloading the Data"
     cd ${GRAPHDB_SOURCE}
     #clear out the old stuff
@@ -47,11 +47,6 @@ if [ -z "$(ls -A $GRAPHDB_SOURCE)" ] || [ -n "${FORCE_REFRESH}" ]; then
     for filename in ${APP_HOME}/pre-condition-files/*.sparql; do
         curl -X POST ${STATEMENTS_ENDPOINT} -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/sparql-results+json" --data-urlencode "update@$filename"
     done
-
-    unset FORCE_REFRESH
-
-    echo "Wait now for GraphDB to exit"
-    wait
 else
     #Just start of the GraphDB instance
     echo "Starting GraphsDB with existing data: no building"
