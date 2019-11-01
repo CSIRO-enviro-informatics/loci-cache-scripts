@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+    harvest:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment: 
+            - AWS_ACCESS_KEY_ID
+            - AWS_SECRET_ACCESS_KEY
+            - S3_BUCKET
+            - S3_REGION
+            - S3_PATH=${S3_DATASET_PATH}
+            - SINGLE_REGISTER
+
+            - GRAPH_NAME=${GEOFABRIC_DATASET_URI}
+            - OUTPUT_FILE=${GEOFABRIC_DATASET_FILE}
+            # - BRANCH=master
