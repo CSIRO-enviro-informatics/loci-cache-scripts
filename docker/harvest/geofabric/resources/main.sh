@@ -24,8 +24,8 @@ fi
 pip install --no-cache-dir -r requirements.txt
 
 export PYTHONPATH=$(pwd)
-cd asgs_dataset
-python ./app.py --init
+cd geofabric
+python ./flask_app.py --init
 cd ..
 python ./new_graph_builder.py ${SINGLE_REGISTER}
 
