@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    asgs_harvest:
+    harvest:
         environment: 
             - GRAPH_NAME=${GNAF1605_DATASET_URI}
             - OUTPUT_FILE=${GNAF1605_DATASET_FILE}

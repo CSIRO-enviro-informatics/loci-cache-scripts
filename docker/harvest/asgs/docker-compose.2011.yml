@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-    asgs_harvest:
+    harvest:
         environment: 
             - GRAPH_NAME=${ASGS2011_DATASET_URI}
             - OUTPUT_FILE=${ASGS2011_DATASET_FILE}
