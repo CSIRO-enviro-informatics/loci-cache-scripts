@@ -12,7 +12,8 @@ services:
             - S3_REGION
             - S3_PATH=${S3_DATASET_PATH}
             - SINGLE_REGISTER
-
             - GRAPH_NAME=${GEOFABRIC_DATASET_URI}
             - OUTPUT_FILE=${GEOFABRIC_DATASET_FILE}
-            # - BRANCH=master
+            - BRANCH=jyucsiro/feature/auto_harvest_changes
+        #command: tail -f /dev/null
+
