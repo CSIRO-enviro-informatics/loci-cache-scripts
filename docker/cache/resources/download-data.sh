@@ -26,6 +26,7 @@ wget "${DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_STREET_DATASET_FILE}"
+wget "${DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
 
 #Registries
 wget "http://linked.data.gov.au/dataset/asgs2016/reg/?_view=reg&_format=text/turtle" -O asgs2016.reg.ttl
