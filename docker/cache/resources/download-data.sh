@@ -35,8 +35,8 @@ wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle
 wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
 
 #Externally published Ontologies
-wget --header="Accept: text/turtle" http://linked.data.gov.au/def/asgs -O asgs.ont.ttl
-# wget --header="Accept: text/turtle" https://raw.githubusercontent.com/AGLDWG/asgs-ont/master/asgs.ttl -O asgs.ont.ttl
+#wget --header="Accept: text/turtle" http://linked.data.gov.au/def/asgs -O asgs.ont.ttl
+wget --header="Accept: text/turtle" https://raw.githubusercontent.com/AGLDWG/asgs-ont/master/asgs.ttl -O asgs.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/asgs.ttl" -O asgs.ont.ttl
 wget --header="Accept: text/turtle" http://linked.data.gov.au/def/gnaf -O gnaf.ont.ttl
 # wget --header="Accept: text/turtle" https://raw.githubusercontent.com/AGLDWG/gnaf-ont/master/gnaf.ttl -O gnaf.ont.ttl
@@ -66,4 +66,4 @@ wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-envi
 wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-enviro-informatics/geosparql-ext-ont/master/geox.ttl -O geox.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/geosparql-ext.ttl" -O geox.ont.ttl
 
-
+rm *.html

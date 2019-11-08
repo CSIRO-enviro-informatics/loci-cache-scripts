@@ -27,7 +27,7 @@ if [ -n "${FORCE_REFRESH}" ]; then
     ${APP_HOME}/download-data.sh    
 
     #Load all the data into the database (force replace)
-    ${GRAPHDB_HOME}/bin/loadrdf -f -m parallel -c ${REPO_CONFIG} ${GRAPHDB_SOURCE}
+    ${GRAPHDB_HOME}/bin/preload --force -p --chunk 20m -c ${REPO_CONFIG} ${GRAPHDB_SOURCE}
 
     #start the db in the background
     ${GRAPHDB_HOME}/bin/graphdb & 
