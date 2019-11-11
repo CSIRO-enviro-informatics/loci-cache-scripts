@@ -22,8 +22,12 @@
             owlim:enable-context-index "false" ;
 
             # indexes to speed up the read queries
-            owlim:enablePredicateList "true" ;
-            owlim:enable-literal-index "true" ;
-            owlim:in-memory-literal-properties "true" ;
+#            owlim:enablePredicateList "true" ;
+#            owlim:enable-literal-index "true" ;
+#            owlim:in-memory-literal-properties "true" ;
+            owlim:enablePredicateList "false" ;
+            owlim:enable-literal-index "false" ;
+            owlim:in-memory-literal-properties "false" ;
+
         ]
     ].

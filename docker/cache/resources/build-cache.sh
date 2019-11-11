@@ -16,7 +16,7 @@ env
 
 echo "GDB_HEAP_SIZE set at ${GDB_HEAP_SIZE}"
 
-if [ -z "$(ls -A $GRAPHDB_SOURCE)" ] || [ -n "${FORCE_REFRESH}" ]; then
+if [ -n "${FORCE_REFRESH}" ]; then
     echo "Downloading the Data"
     cd ${GRAPHDB_SOURCE}
     #clear out the old stuff
@@ -27,10 +27,11 @@ if [ -z "$(ls -A $GRAPHDB_SOURCE)" ] || [ -n "${FORCE_REFRESH}" ]; then
     ${APP_HOME}/download-data.sh    
 
     #Load all the data into the database (force replace)
-    ${GRAPHDB_HOME}/bin/loadrdf -f -m parallel -c ${REPO_CONFIG} ${GRAPHDB_SOURCE}
+    ${GRAPHDB_HOME}/bin/preload --force -p --chunk 20m -c ${REPO_CONFIG} ${GRAPHDB_SOURCE}
 
     #start the db in the background
     ${GRAPHDB_HOME}/bin/graphdb & 
+    GRAPHDB_PID=$!
 
     #wait for it to startup
     echo "Waiting for GraphDB to start up"
@@ -48,10 +49,7 @@ if [ -z "$(ls -A $GRAPHDB_SOURCE)" ] || [ -n "${FORCE_REFRESH}" ]; then
         curl -X POST ${STATEMENTS_ENDPOINT} -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/sparql-results+json" --data-urlencode "update@$filename"
     done
 
-    unset FORCE_REFRESH
-
-    echo "Wait now for GraphDB to exit"
-    wait
+    kill ${GRAPHDB_PID}
 else
     #Just start of the GraphDB instance
     echo "Starting GraphsDB with existing data: no building"
