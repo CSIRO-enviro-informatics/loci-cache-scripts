@@ -2,7 +2,7 @@ import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
 import os
-import utils
+from locilinksetutils import utils
 import logging
 logging.basicConfig(level=logging.DEBUG)
 

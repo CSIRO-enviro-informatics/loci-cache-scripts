@@ -3,4 +3,4 @@ set -e
 
 source ../../../common/common.sh
 
-docker-compose up -d --build --force-recreate
+docker-compose up -f docker-compose.base.yml -d --build --force-recreate

@@ -1,5 +1,5 @@
-import linksets_builder
-import utils
+from locilinksetutils import linksets_builder
+from locilinksetutils import utils
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
@@ -7,7 +7,7 @@ s3_geofabric_rr_path = utils.fail_or_getenv('S3_GEOFABRIC_RR_PATH')
 
 def get_riverregion_assets():
     logging.info("Downloading geofabric riverregion spatial data")
-    linksets_builder.get_s3_assets('HR_Regions_GDB_V2_1_1', linksets_builder.s3_bucket, linksets_builder.s3_source_data_path + s3_geofabric_rr_path)
+    utils.get_s3_assets('HR_Regions_GDB_V2_1_1', linksets_builder.s3_bucket, linksets_builder.s3_source_data_path + s3_geofabric_rr_path)
 
 def load_geofabric_riverregions():
     '''
