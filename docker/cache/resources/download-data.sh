@@ -28,7 +28,7 @@ wget "${DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
 wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle" -O geofabric.reg.ttl
 
 #wget "${DATASET_BASE}/${GNAF_DATASET_FILE}"
-wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
+# wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
 
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
