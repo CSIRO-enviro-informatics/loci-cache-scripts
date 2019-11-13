@@ -20,19 +20,22 @@ wget "${MANUAL_LINKSET_BASE}/${ADDR16052MB11_LINKSET_FILE}"
 #addr1605mb11-linkset
 #addr1605mb16-linkset
 
-#Datasets
+#Datasets and Register Info
 wget "${DATASET_BASE}/${ASGS2016_DATASET_FILE}"
+wget "http://linked.data.gov.au/dataset/asgs2016/reg/?_view=reg&_format=text/turtle" -O asgs2016.reg.ttl
+
 wget "${DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
+wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle" -O geofabric.reg.ttl
+
 #wget "${DATASET_BASE}/${GNAF_DATASET_FILE}"
+wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
+
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_STREET_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
+wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
 
-#Registries
-wget "http://linked.data.gov.au/dataset/asgs2016/reg/?_view=reg&_format=text/turtle" -O asgs2016.reg.ttl
-wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle" -O geofabric.reg.ttl
-wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
 
 #Externally published Ontologies
 #wget --header="Accept: text/turtle" http://linked.data.gov.au/def/asgs -O asgs.ont.ttl
