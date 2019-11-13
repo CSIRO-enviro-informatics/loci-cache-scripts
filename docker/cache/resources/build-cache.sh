@@ -49,6 +49,10 @@ if [ -n "${FORCE_REFRESH}" ]; then
         curl -X POST ${STATEMENTS_ENDPOINT} -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/sparql-results+json" --data-urlencode "update@$filename"
     done
 
+    #sleep for a bit, just to make sure last command has flushed
+    sleep 30
+
+    #This is the suggest method from graphdb to stop the container
     kill ${GRAPHDB_PID}
 else
     #Just start of the GraphDB instance
