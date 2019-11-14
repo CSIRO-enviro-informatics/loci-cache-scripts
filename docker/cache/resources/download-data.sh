@@ -32,7 +32,7 @@ wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle
 
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
-wget "${DATASET_BASE}/${GNAF1605_STREET_DATASET_FILE}"
+wget "${DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
 wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
 
@@ -69,4 +69,6 @@ wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-envi
 wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-enviro-informatics/geosparql-ext-ont/master/geox.ttl -O geox.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/geosparql-ext.ttl" -O geox.ont.ttl
 
-rm *.html
+if ls *.html 1> /dev/null 2>&1; then
+    rm *.html
+fi
