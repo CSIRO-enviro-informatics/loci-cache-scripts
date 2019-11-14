@@ -32,7 +32,7 @@ wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle
 
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
-wget "${DATASET_BASE}/${GNAF1605_STREET_DATASET_FILE}"
+wget "${DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
 wget "${DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
 wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
 
