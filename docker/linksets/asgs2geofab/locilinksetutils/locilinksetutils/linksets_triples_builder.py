@@ -54,7 +54,7 @@ l: a loci:Linkset ;
   dct:modified "{creation_date}"^^xsd:date ;
   void:subjectsTarget <{subjects_target}> ;
   void:linkPredicate w: , c: , tso: ;
-  void:objectsTarget <{subjects_target}> ;
+  void:objectsTarget <{objects_target}> ;
   m: _:linkset_prov_p .
 
 _:linkset_prov_p a prov:Plan ;
