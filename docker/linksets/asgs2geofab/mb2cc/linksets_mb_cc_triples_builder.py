@@ -21,8 +21,8 @@ if __name__ == "__main__":
     from_prefix = "http://linked.data.gov.au/dataset/asgs2016/meshblock/"
     to_prefix = "http://linked.data.gov.au/dataset/geofabric/contractedcatchment/"
     provenance_comment = "The method used to classify Meshblock and Contracted Catchment relationships"
-    linkset_triples_builder.database_url = database_url
-    linkset_triples_builder.do_withins(from_id_column, to_id_column)
-    linkset_triples_builder.do_overlaps(from_id_column, to_id_column)
-    linkset_triples_builder.generate_header(header_description, header_title, contact_name, contact_email, from_prefix, to_prefix, subjects_target, objects_target, provenance_comment)
-    linkset_triples_builder.concat_files("ls_mb16cc.ttl")
+    linksets_triples_builder.database_url = database_url
+    linksets_triples_builder.do_withins(from_id_column, to_id_column)
+    linksets_triples_builder.do_overlaps(from_id_column, to_id_column)
+    linksets_triples_builder.generate_header(header_description, header_title, contact_name, contact_email, from_prefix, to_prefix, subjects_target, objects_target, provenance_comment)
+    linksets_triples_builder.concat_files("ls_mb16cc.ttl")
