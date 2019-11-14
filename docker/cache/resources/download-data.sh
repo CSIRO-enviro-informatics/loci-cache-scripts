@@ -69,4 +69,6 @@ wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-envi
 wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-enviro-informatics/geosparql-ext-ont/master/geox.ttl -O geox.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/geosparql-ext.ttl" -O geox.ont.ttl
 
-rm *.html
+if ls *.html 1> /dev/null 2>&1; then
+    rm *.html
+fi
