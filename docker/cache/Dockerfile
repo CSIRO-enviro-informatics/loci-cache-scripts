@@ -23,7 +23,7 @@ ENV GRAPHDB_ZIP="${APP_HOME}/graphdb.zip"
 ENV REPO_CONFIG="${APP_HOME}/repo-config.ttl"
 ENV GRAPHDB_SOURCE=${GRAPHDB_SOURCE:-"${APP_HOME}/cachedata"}
 # Set GraphDB Max and Min Heap size (must be less than available RAM)
-ENV GDB_HEAP_SIZE="${GDB_HEAP_SIZE:-28g}"
+ENV GDB_HEAP_SIZE="${GDB_HEAP_SIZE:-1g}"
 
 WORKDIR ${APP_HOME}
 
