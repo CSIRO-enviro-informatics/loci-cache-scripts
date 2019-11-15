@@ -70,5 +70,6 @@ wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-envi
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/geosparql-ext.ttl" -O geox.ont.ttl
 
 if ls *.html 1> /dev/null 2>&1; then
-    rm *.html
+    echo "Likely and error in the downloads, check the URLs"
+    exit 1
 fi
