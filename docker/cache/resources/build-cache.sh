@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 HOST_ADDRESS="http://localhost:7200"
@@ -23,11 +23,14 @@ if [ -n "${FORCE_REFRESH}" ]; then
     echo "Wiping the directory of files at: ${GRAPHDB_SOURCE}"
     rm -rf ${GRAPHDB_SOURCE}/*
 
+    start_time=`date +%s`
     #Download all relevant data
     ${APP_HOME}/download-data.sh    
+    download_time=`date +%s`
 
     #Load all the data into the database (force replace)
     ${GRAPHDB_HOME}/bin/preload --force -p --chunk 20m -c ${REPO_CONFIG} ${GRAPHDB_SOURCE}
+    load_time=`date +%s`
 
     #start the db in the background
     ${GRAPHDB_HOME}/bin/graphdb & 
@@ -40,13 +43,19 @@ if [ -n "${FORCE_REFRESH}" ]; then
         sleep 2
     done
     echo "GraphDB started"
+    startup_time=`date +%s`
 
     #Loop precondition file and send to graphql
     #Might be worth looking to use parallel or xargs to run these in parallel, graphdb appear to be only using
     # 1cpu per request. AWS box has 4. Something like:
     # xargs -n1 -P4 bash -c 'i=$0; url="http://example.com/?page${i}.html"; curl -O -s $url'
-    for filename in ${APP_HOME}/pre-condition-files/*.sparql; do
+    scripts=(${APP_HOME}/pre-condition-files/*.sparql)    
+
+    for i in ${!scripts[*]}; do
+        filename=${scripts[$i]}
+        echo "Pre-condition Script: $filename"
         curl -X POST ${STATEMENTS_ENDPOINT} -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/sparql-results+json" --data-urlencode "update@$filename"
+        script_times[$i]=`date +%s`
     done
 
     #sleep for a bit, just to make sure last command has flushed
@@ -54,6 +63,27 @@ if [ -n "${FORCE_REFRESH}" ]; then
 
     #This is the suggest method from graphdb to stop the container
     kill ${GRAPHDB_PID}
+
+    #Metrics
+    #Sleep just to put metrics at the end after kill
+    sleep 20
+    finish_time=`date +%s`
+    echo "" 
+    echo "======================================================="
+    echo "  Build Metrics (minutes)"
+    echo "======================================================="
+    echo "Download Data: $((($download_time-$start_time)/60))"
+    echo "Graph DB Load Data: $((($load_time-$download_time)/60))"
+    echo "Graph DB Startup: $((($startup_time-$load_time)/60))"
+    prev_time=$startup_time
+    for i in ${!scripts[*]}; do
+        filename=${scripts[$i]}
+        script_time=${script_times[$i]}
+        echo "Pre-condition ($filename): $((($script_time-$prev_time)/60))"
+        prev_time=$script_time
+    done
+    echo "Total Time: $((($finish_time-$start_time)/60))"
+
 else
     #Just start of the GraphDB instance
     echo "Starting GraphsDB with existing data: no building"
