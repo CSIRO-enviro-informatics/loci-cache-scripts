@@ -16,9 +16,9 @@
 @prefix p: <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> .
 @prefix o: <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> .
 @prefix m: <http://linked.data.gov.au/def/loci/hadGenerationMethod> .
-@prefix g: <${TARGET_URI}/address/> .
+@prefix g: <${SUBJECT_DATASET_URI}/address/> .
 @prefix w: <http://www.opengis.net/ont/geosparql#sfWithin> .
 @prefix i: <http://purl.org/dc/terms/isPartOf> .
-@prefix c: <http://linked.data.gov.au/dataset/geofabric/contractedcatchment/> .
+@prefix c: <${OBJECT_DATASET_URI}/contractedcatchment/> .
 @prefix si: <${LINKSET_URI}/SpatialIntersection> .
 
