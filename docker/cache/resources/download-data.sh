@@ -5,7 +5,9 @@ S3_BASE="https://${S3_BUCKET}.s3-ap-southeast-2.amazonaws.com"
 LINKSET_BASE="${S3_BASE}${S3_LINKSET_PATH}"
 MANUAL_LINKSET_BASE="${S3_BASE}${S3_MANUAL_LINKSET_PATH}"
 DATASET_BASE="${S3_BASE}${S3_DATASET_PATH}"
-
+ASGS_DATASET_BASE="${S3_BASE}${ASGS_DATASET_PATH}"
+GNAF_DATASET_BASE="${S3_BASE}${GNAF_DATASET_PATH}"
+GEOFABRIC_DATASET_BASE="${S3_BASE}${GEOFABRIC_DATASET_PATH}"
 #Linksets
 wget "${LINKSET_BASE}/${MB2CC_LINKSET_FILE}"
 #wget "${LINKSET_BASE}/${ADDR2CC_LINKSET_FILE}"
@@ -21,19 +23,36 @@ wget "${MANUAL_LINKSET_BASE}/${ADDR16052MB16_LINKSET_FILE}"
 #addr1605mb16-linkset
 
 #Datasets and Register Info
-wget "${DATASET_BASE}/${ASGS2016_DATASET_FILE}"
+wget "${ASGS_DATASET_BASE}/asgs2016_aus.nt.gz"
+wget "${ASGS_DATASET_BASE}/asgs2016_ced.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_gccsa.nt.gz"
+wget "${ASGS_DATASET_BASE}/asgs2016_ind.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_lga.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_meshblocks.nt.gz"
+wget "${ASGS_DATASET_BASE}/asgs2016_nrmr.nt.gz" 
+wget "${ASGS_DATASET_BASE}/asgs2016_ra.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sa1.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sa2.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sa3.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sa4.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sos.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_sosr.nt.gz" 
+wget "${ASGS_DATASET_BASE}/asgs2016_ssc.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_state.nt.gz" 
+wget "${ASGS_DATASET_BASE}/asgs2016_sua.nt.gz" 	
+wget "${ASGS_DATASET_BASE}/asgs2016_ucl.nt.gz" 
 wget "http://linked.data.gov.au/dataset/asgs2016/reg/?_view=reg&_format=text/turtle" -O asgs2016.reg.ttl
 
-wget "${DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
+wget "${GEOFABRIC_DATASET_BASE}/${GEOFABRIC_DATASET_FILE}"
 wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle" -O geofabric.reg.ttl
 
 #wget "${DATASET_BASE}/${GNAF_DATASET_FILE}"
 # wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
 
-wget "${DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
-wget "${DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
-wget "${DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
-wget "${DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
+wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
+wget "${GNAF_DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
+wget "${GNAF_DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
+wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
 wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
 
 

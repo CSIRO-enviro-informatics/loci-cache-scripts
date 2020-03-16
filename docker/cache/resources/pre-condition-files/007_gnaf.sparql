@@ -4,8 +4,6 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 INSERT { 
     GRAPH <http://linked.data.gov.au/dataset/cache_inference> {
-    	?s geo:sfWithin ?o .
-        ?o geo:sfContains ?s .
         _:b1 rdf:subject ?s ;
              rdf:predicate geo:sfWithin ;
              rdf:object ?o .
