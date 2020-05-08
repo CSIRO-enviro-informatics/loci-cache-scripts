@@ -68,7 +68,7 @@ wget --header="Accept: text/turtle" http://linked.data.gov.au/def/geofabric -O g
 
 # wget --header="Accept: text/turtle" https://raw.githubusercontent.com/CSIRO-enviro-informatics/geofabric-ont/master/geofabric.ttl -O gnaf.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/geofabric.ttl" -O geofabric.ont.ttl
-wget "https://www.opengis.net/def/appschema/hy_features/hyf/hyf.ttl" -O hy_features.ont.ttl
+#wget "https://www.opengis.net/def/appschema/hy_features/hyf/hyf.ttl" -O hy_features.ont.ttl
 wget --header="Accept: text/turtle" http://qudt.org/2.0/schema/SCHEMA_QUDT-v2.0.ttl -O SCHEMA_QUDT-v2.1.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/SCHEMA_QUDT-v2.1.ttl" -O SCHEMA_QUDT-v2.1.ont.ttl
 wget --header="Accept: text/turtle" http://www.w3.org/ns/org -O org.ont.ttl
