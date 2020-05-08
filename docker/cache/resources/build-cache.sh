@@ -87,6 +87,6 @@ if [ -n "${FORCE_REFRESH}" ]; then
 else
     #Just start of the GraphDB instance
     echo "Starting GraphsDB with existing data: no building"
-    ${GRAPHDB_HOME}/bin/graphdb
+    ${GRAPHDB_HOME}/bin/graphdb -Ddefault.min.distinct.threshold=104857600
 fi
 
