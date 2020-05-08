@@ -9,8 +9,6 @@ PREFIX w5: <http://linked.data.gov.au/def/asgs#isStateOrTerritoryOf>
 
 INSERT {
     GRAPH <http://linked.data.gov.au/dataset/cache_inference> {
-        ?s geo:sfContains ?o .
-        ?o geo:sfWithin ?s .
         _:b1 rdf:subject ?s ;
              rdf:predicate geo:sfContains ;
              rdf:object ?o .
