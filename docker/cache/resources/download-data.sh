@@ -6,13 +6,13 @@ LINKSET_BASE="${S3_BASE}${S3_LINKSET_PATH}"
 MANUAL_LINKSET_BASE="${S3_BASE}${S3_MANUAL_LINKSET_PATH}"
 DATASET_BASE="${S3_BASE}${S3_DATASET_PATH}"
 ASGS_DATASET_BASE="${S3_BASE}${ASGS_DATASET_PATH}"
-GNAF_DATASET_BASE="${S3_BASE}${GNAF_DATASET_PATH}"
+#GNAF_DATASET_BASE="${S3_BASE}${GNAF_DATASET_PATH}"
 GEOFABRIC_DATASET_BASE="${S3_BASE}${GEOFABRIC_DATASET_PATH}"
 #Linksets
 wget "${LINKSET_BASE}/${MB2CC_LINKSET_FILE}"
 #wget "${LINKSET_BASE}/${ADDR2CC_LINKSET_FILE}"
-wget "${LINKSET_BASE}/${ADDR16052CC_LINKSET_FILE}"
-wget "${MANUAL_LINKSET_BASE}/${ADDR16052MB16_LINKSET_FILE}"
+#wget "${LINKSET_BASE}/${ADDR16052CC_LINKSET_FILE}"
+#wget "${MANUAL_LINKSET_BASE}/${ADDR16052MB16_LINKSET_FILE}"
 # wget "${MANUAL_LINKSET_BASE}/${ADDR16052MB11_LINKSET_FILE}"
 
 #mb11mb16
@@ -49,18 +49,18 @@ wget "http://linked.data.gov.au/dataset/geofabric/?_view=reg&_format=text/turtle
 #wget "${DATASET_BASE}/${GNAF_DATASET_FILE}"
 # wget "http://linked.data.gov.au/dataset/gnaf/?_view=reg&_format=text/turtle" -O gnafCurrent.reg.ttl
 
-wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
-wget "${GNAF_DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
-wget "${GNAF_DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
-wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
-wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
+#wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_DATASET_FILE}"
+#wget "${GNAF_DATASET_BASE}/${GNAF1605_LOCALITY_DATASET_FILE}"
+#wget "${GNAF_DATASET_BASE}/${GNAF1605_STREET_LOCALITY_DATASET_FILE}"
+#wget "${GNAF_DATASET_BASE}/${GNAF1605_ADDRESS_SITES_DATASET_FILE}"
+#wget "http://linked.data.gov.au/dataset/gnaf-2016-05/?_view=reg&_format=text/turtle" -O gnaf201605.reg.ttl
 
 
 #Externally published Ontologies
 #wget --header="Accept: text/turtle" http://linked.data.gov.au/def/asgs -O asgs.ont.ttl
 wget --header="Accept: text/turtle" https://raw.githubusercontent.com/AGLDWG/asgs-ont/master/asgs.ttl -O asgs.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/asgs.ttl" -O asgs.ont.ttl
-wget --header="Accept: text/turtle" http://linked.data.gov.au/def/gnaf -O gnaf.ont.ttl
+#wget --header="Accept: text/turtle" http://linked.data.gov.au/def/gnaf -O gnaf.ont.ttl
 # wget --header="Accept: text/turtle" https://raw.githubusercontent.com/AGLDWG/gnaf-ont/master/gnaf.ttl -O gnaf.ont.ttl
 # wget "https://loci-assets.s3-ap-southeast-2.amazonaws.com/ontologies/loci-lite/gnaf.ttl" -O gnaf.ont.ttl
 # wget --header="Accept: text/turtle" http://linked.data.gov.au/def/geofabric -O geofabric.ont.ttl
