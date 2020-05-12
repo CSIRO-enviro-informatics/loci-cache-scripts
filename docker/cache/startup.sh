@@ -13,6 +13,17 @@ then
         docker-compose up --build --force-recreate --abort-on-container-exit
         
         unset FORCE_REFRESH
+    elif [ "$1" == "--local-build" ]
+    then
+        export SKIP_DOWNLOAD=1
+        export FORCE_REFRESH=1
+        echo "Skipping download phase and building"
+        # run and wait for exit (build)
+        echo "docker-compose -f docker-compose.local.yml up --build --force-recreate --abort-on-container-exit"
+        docker-compose -f docker-compose.local.yml up --build --force-recreate --abort-on-container-exit
+        
+        unset FORCE_REFRESH
+        unset SKIP_DOWNLOAD 
     else
         echo "--rebuild is the only valid option to this script"
         exit 1
