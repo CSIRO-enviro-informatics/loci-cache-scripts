@@ -19,13 +19,18 @@ echo "GDB_HEAP_SIZE set at ${GDB_HEAP_SIZE}"
 if [ -n "${FORCE_REFRESH}" ]; then
     echo "Downloading the Data"
     cd ${GRAPHDB_SOURCE}
-    #clear out the old stuff
-    echo "Wiping the directory of files at: ${GRAPHDB_SOURCE}"
-    rm -rf ${GRAPHDB_SOURCE}/*
+    if [ -z "${SKIP_DOWNLOAD}" ]; then
+       #clear out the old stuff
+       echo "Wiping the directory of files at: ${GRAPHDB_SOURCE}"
+       rm -rf ${GRAPHDB_SOURCE}/*
+    fi
 
     start_time=`date +%s`
     #Download all relevant data
-    ${APP_HOME}/download-data.sh    
+    #Skip if SKIP_DOWNLOAD is set - assumes data is in ${GRAPHDB_SOURCE}
+    if [ -z "${SKIP_DOWNLOAD}" ]; then
+       ${APP_HOME}/download-data.sh    
+    fi
     download_time=`date +%s`
 
     #Load all the data into the database (force replace)

@@ -6,6 +6,10 @@ If no files are found, it will completely refresh the cache.
 > ./startup.sh --rebuild
 Will force a refresh of the data, rebuild the cache, then startup the graph.
 
+> ./startup.sh --local-build
+Will force a refresh of the data based on what is in `cachedata` (without downloading), 
+rebuild the cache, then startup the graph.
+
 > ./stop.sh
 Will bring down the container
 
