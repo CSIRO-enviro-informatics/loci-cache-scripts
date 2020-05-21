@@ -1,0 +1,10 @@
+PREFIX loci: <http://linked.data.gov.au/def/loci#>
+PREFIX void: <http://rdfs.org/ns/void#>
+INSERT {
+    ?linkset void:subjectsTarget <http://linked.data.gov.au/dataset/asgs2016> .
+    ?linkset void:objectsTarget <http://linked.data.gov.au/dataset/geofabric> .
+}
+WHERE {
+        ?linkset a loci:Linkset .        
+    FILTER(?linkset = <http://linked.data.gov.au/dataset/mb16cc>)
+}
