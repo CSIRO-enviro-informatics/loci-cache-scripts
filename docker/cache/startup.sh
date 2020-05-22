@@ -19,7 +19,7 @@ then
         export FORCE_REFRESH=1
         echo "Skipping download phase and building"
         # run and wait for exit (build)
-        echo "docker-compose -f docker-compose.local.yml up --build --force-recreate --abort-on-container-exit"
+        echo "docker-compose -f docker-compose.local.yml up --force-recreate --abort-on-container-exit"
         docker-compose -f docker-compose.local.yml up --force-recreate --abort-on-container-exit
         
         unset FORCE_REFRESH
