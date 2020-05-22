@@ -1,0 +1,10 @@
+PREFIX asgs: <http://linked.data.gov.au/def/asgs#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+DELETE {
+   ?ced geo:sfWithin ?ste .
+}
+WHERE { 
+	?ced a asgs:CommonwealthElectoralDivision .
+    ?ced geo:sfWithin ?ste .   
+    FILTER(strstarts(str(?ste), "http://linked.data.gov.au/dataset/asgs2016/stateorterritory/") )
+} 
