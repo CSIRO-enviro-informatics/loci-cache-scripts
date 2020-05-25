@@ -27,7 +27,7 @@ ENV GDB_HEAP_SIZE="${GDB_HEAP_SIZE:-1g}"
 
 WORKDIR ${APP_HOME}
 
-RUN wget https://loci-assets.s3-ap-southeast-2.amazonaws.com/script-resources/graph-cache/graphdb-free-8.10.0-dist.zip -O ${GRAPHDB_ZIP}
+RUN wget https://loci-assets.s3-ap-southeast-2.amazonaws.com/script-resources/graph-cache/graphdb-free-9.2.1-dist.zip -O ${GRAPHDB_ZIP}
 # COPY ./graphdb-free-8.10.0-dist.zip ${GRAPHDB_ZIP}
 RUN unzip ${GRAPHDB_ZIP} -d ${APP_HOME}/graphdb && \
     mv ${APP_HOME}/graphdb/graphdb-* ${GRAPHDB_HOME} && \
