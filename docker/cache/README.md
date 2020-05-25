@@ -20,3 +20,14 @@ Its probably a good idea to create volumes for both the GraphDB backend, and `GR
 -v /host/graphdbdata:/graphdb/data
 
 The compose file does this with named volumes
+
+# Notes on local-build
+
+Ensure the README.md file in `cachedata` is removed before the build.
+```
+rm cachedata/README.md
+tar xvzf cachedata-asgs16-geofabric211.tar.gz 
+./startup.sh --local-build
+# test the GraphDB REST API to check
+curl http://localhost/rest/repositories
+```
