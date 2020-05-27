@@ -1,0 +1,13 @@
+PREFIX loci: <http://linked.data.gov.au/def/loci#>
+PREFIX void: <http://rdfs.org/ns/void#>
+DELETE {
+    ?linkset void:subjectsTarget ?subjectsTarget .
+    ?linkset void:objectsTarget ?objectsTarget .
+}
+WHERE {
+        ?linkset a loci:Linkset .
+        ?linkset void:subjectsTarget ?subjectsTarget .
+        ?linkset void:objectsTarget ?objectsTarget .
+    FILTER(?subjectsTarget = ?objectsTarget)
+    FILTER(?linkset = <http://linked.data.gov.au/dataset/mb16cc>)
+}
