@@ -1,56 +1,48 @@
 PREFIX : <http://linked.data.gov.au/def/loci#> 
 PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX org: <https://www.w3.org/ns/org#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
 
 INSERT DATA {
     GRAPH <http://linked.data.gov.au/dataset/explicit> {
         <http://catalogue.linked.data.gov.au/org/abs>
-            a owl:NamedIndividual ;
-            a org:Organization ;
+            a org:Organization , dcterms:Agent ;
             rdfs:label "Australian Bureau of Statistics" ;
             .
         <http://catalogue.linked.data.gov.au/org/csiro>
-            a owl:NamedIndividual ;
-            a org:Organization ;
+            a org:Organization , dcterms:Agent ;
             rdfs:label "CSIRO" ;
             .
         <http://catalogue.linked.data.gov.au/org/ga>
-            a owl:NamedIndividual ;
-            a org:Organization ;
+            a org:Organization , dcterms:Agent ;
             rdfs:label "Geoscience Australia" ;
             .
         <http://catalogue.linked.data.gov.au/org/psma>
-            a owl:NamedIndividual ;
-            a org:Organization ;
+            a org:Organization , dcterms:Agent ;
             rdfs:label "PSMA Australia" ;
             .
         <http://linked.data.gov.au/dataset/addrcatch>
             a :Linkset ;
-            a owl:NamedIndividual ;
             rdfs:label "Addresses Catchments Linkset" ;
             .
         <http://linked.data.gov.au/dataset/asgs2016>
             a :Dataset ;
-            a owl:NamedIndividual ;
             rdfs:label "ASGS 2016 Dataset" ;
             .
         <http://linked.data.gov.au/dataset/asgs2011>
             a :Dataset ;
-            a owl:NamedIndividual ;
             rdfs:label "ASGS 2016 Dataset" ;
             .
         <http://linked.data.gov.au/dataset/geofabric>
             a :Dataset ;
-            a owl:NamedIndividual ;
-            rdfs:label "Geofabric Dataset" ;
+             rdfs:label "Geofabric Dataset" ;
             .
         <http://linked.data.gov.au/dataset/gnaf>
             a :Dataset ;
-            a owl:NamedIndividual ;
-            rdfs:label "GNAF Dataset" ;
+             rdfs:label "GNAF Dataset" ;
             .
         <http://linked.data.gov.au/dataset/gnaf-2016-05>
             a :Dataset ;
-            a owl:NamedIndividual ;
             rdfs:label "GNAF 2016 May Dataset" ;
             .
     }
